@@ -2,19 +2,19 @@
 
 ## Overview
 
-Custom XML data type mapping files developed to facilitate
-the transfer of MySQL tables into Microsoft SQL Server
-using the SQL Server Import and Export Wizard.
+Custom XML data type mapping files that facilitate the
+transfer of MySQL tables into Microsoft SQL Server using
+the SQL Server Import and Export Wizard.
 
 ## Background
 
-During attempts to import MySQL database tables into SQL
-Server, two issues were encountered:
+Two issues were encountered when attempting to import
+MySQL tables into SQL Server:
 
 - The MySQL ODBC driver returned inconsistent and
-  corrupted data type metadata.
+  corrupted data type metadata
 - The SQL Server Import and Export Wizard lacked native
-  MySQL data type mapping files.
+  MySQL data type mapping files
 
 The ODBC connection was replaced with MySQL Connector/NET,
 and custom XML mapping files were developed using existing
@@ -24,99 +24,97 @@ Microsoft SSIS mapping files as structural templates.
 
 | File | Description |
 | --- | --- |
-| MySqlToSSIS.xml | Maps MySQL source data types to intermediate SSIS data types. |
-| MySqlToMSSql.xml | Maps MySQL source data types directly to SQL Server destination data types. |
+| [MySqlToSSIS.xml](MySqlToSSIS.xml) | Maps MySQL source data types to intermediate SSIS data types. |
+| [MySqlToMSSql.xml](MySqlToMSSql.xml) | Defines corresponding SQL Server destination data types. |
 
 ## Tested Environment
 
 - Windows 10 (64-bit)
 - MySQL Server 8.0.43
-- Microsoft SQL Server 2022
-- SQL Server Management Studio 21
 - MySQL Connector/NET 26.7
+- Microsoft SQL Server 2022
+- SQL Server Management Studio (SSMS) 21
+- SQL Server Import and Export Wizard bundled with SSMS 21
 - Microsoft OLE DB Driver for SQL Server
 
 ## Installation
 
-1. Install [MySQL Connector/NET](https://dev.mysql.com/downloads/connector/net/).
-2. Close the SQL Server Import and Export Wizard.
-3. Copy both XML files into the applicable SSIS
-   MappingFiles directory.
-4. Restart the wizard.
+1. Install [MySQL Connector/NET](https://dev.mysql.com/downloads/connector/net/)
+2. Copy both XML mapping files into the SSIS `MappingFiles`
+   directory
 
-### SSMS 21 Directory
+### Verified Installation Directory (SSMS 21)
 
 `C:\Program Files\Microsoft SQL Server Management Studio 21\Release\Common7\IDE\CommonExtensions\Microsoft\SSIS\170\MappingFiles`
 
-### SQL Server 2022 Directory
-
-`C:\Program Files\Microsoft SQL Server\160\DTS\MappingFiles`
-
-The appropriate directory depends on which version of the
-Import and Export Wizard is being used.
-
-Successful migration testing was performed using the
-wizard bundled with SSMS 21.
+**Note:** The installation directory may vary depending on
+the SSMS or SSIS version. If the Import and Export Wizard
+is already running, restart it to load the new mapping
+files.
 
 ## Usage
 
-1. Launch the SQL Server Import and Export Wizard.
+1. In SSMS, right-click the destination database and select
+   **Tasks > Import Data**
 2. Select **.NET Framework Data Provider for MySQL**
-   as the source provider.
-3. Supply the MySQL server, database, and authentication
-   credentials.
+   as the source provider
+3. Configure the MySQL connection
 4. Select **Microsoft OLE DB Driver for SQL Server**
-   as the destination provider.
-5. Configure the destination connection.
-6. Specify the source SQL query.
-7. Review the destination table name and column mappings.
-8. Execute the import.
+   as the destination provider
+5. Configure the SQL Server connection
+6. Specify a SQL query to retrieve the source data
+7. Review the destination table name and column mappings
+8. Execute the import
 
 ## Verified Data Type Mappings
 
-| MySQL | SQL Server |
-| --- | --- |
-| CHAR(n) | NCHAR(n) |
-| VARCHAR(n) | NVARCHAR(n) |
-| DATE | DATE |
-| DECIMAL(p,s) | DECIMAL(p,s) |
+| MySQL | SSIS | SQL Server |
+| --- | --- | --- |
+| CHAR(n) | DT_WSTR | NCHAR(n) |
+| VARCHAR(n) | DT_WSTR | NVARCHAR(n) |
+| DATE | DT_DBDATE | DATE |
+| DECIMAL(p,s) | DT_NUMERIC | DECIMAL(p,s) |
 
 Character lengths, decimal precision, and decimal scale
 were successfully preserved in testing.
-
-The mapping files also accommodate native MySQL type
-identifier `246` (`MYSQL_TYPE_NEWDECIMAL`), which was
-encountered during decimal column conversion.
 
 Unicode character types were selected to preserve
 character data while maintaining the distinction between
 fixed-length and variable-length strings.
 
+The mapping files also accommodate native MySQL type
+identifier `246` (`MYSQL_TYPE_NEWDECIMAL`), which was
+encountered during decimal column conversion.
+
 ## Validation
 
-Successfully imported five tables from a MySQL database
-into SQL Server using the custom mapping configuration.
+Five tables were successfully imported from a MySQL
+database into SQL Server using the custom mapping
+configuration.
 
-Imported tables were subsequently queried in SSMS,
-including multi-table joins and window functions.
+Validation included:
 
-Destination column definitions were inspected using
-the SQL Server system stored procedure `sp_help`.
+- Inspection of destination column definitions using
+  the SQL Server system stored procedure `sp_help`
+- Verification of character lengths and numeric precision
+  and scale
+- Execution of multi-table joins and window functions
+  against the imported data
 
 ## Known Limitations
 
-- Not all mapped MySQL data types have been individually
-  tested.
+- Not all mapped data types have been individually tested
 - Primary keys, foreign keys, indexes, and other database
-  constraints require separate consideration.
-- MySQL and SQL Server have differences in supported
-  data type ranges and precision.
-- Connector or SSIS upgrades may require reinstallation
-  or modification of the mapping files.
-- Compatibility with ODBC providers has not been
-  established.
+  constraints require separate migration
+- Differences in supported data type ranges and precision
+  between MySQL and SQL Server may require additional
+  conversions
 - Unsigned integers, spatial data types, and other
-  specialized MySQL data types require further testing.
+  specialized data types require further investigation
+- Compatibility with ODBC providers and other SSIS
+  versions has not been established
+- Software upgrades may require reinstallation or
+  modification of the mapping files
 
 ## References
 
@@ -128,11 +126,9 @@ the SQL Server system stored procedure `sp_help`.
 
 ### Version 1.0 — November 25, 2026
 
-- Created custom MySQL-to-SSIS mappings.
-- Implemented direct MySQL-to-SQL Server mappings.
-- Preserved fixed-length and variable-length character
-  distinctions.
-- Added support for native MySQL decimal type
-  identifier 246.
-- Successfully completed initial database migration
-  testing across five tables.
+- Initial release of custom MySQL-to-SSIS and
+  MySQL-to-SQL Server mapping files
+- Preservation of fixed-length and variable-length
+  character distinctions
+- Support for native MySQL decimal type identifier `246`
+- Successful migration testing across five tables
