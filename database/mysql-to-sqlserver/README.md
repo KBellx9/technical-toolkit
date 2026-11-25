@@ -1,4 +1,4 @@
-# MySQL to SQL Server — Custom SSIS Data Type Mappings
+# MySQL to SQL Server - Custom SSIS Data Type Mappings
 
 ## Overview
 
@@ -124,7 +124,7 @@ Validation included:
 
 ## Version History
 
-### Version 1.0 — November 25, 2026
+### Version 1.0 - November 25, 2026
 
 - Initial release of custom MySQL-to-SSIS and
   MySQL-to-SQL Server mapping files
