@@ -1,12 +1,20 @@
-# technical-toolkit
-A collection of reusable scripts, configuration files, utilities and solutions to technical problems encountered in practice.
+# Technical Toolkit
 
-Contents
+A collection of reusable scripts, configuration files,
+utilities, and solutions developed to address technical
+problems encountered in practice.
 
-Database Administration and Integration
+## Contents
 
-MySQL to SQL Server: Custom SSIS data type mapping files that facilitate the transfer of data from MySQL to Microsoft SQL Server using MySQL Connector/NET.
+### Database Administration and Integration
 
-Purpose
+- [MySQL to SQL Server](database/mysql-to-sqlserver/):
+  Custom SSIS data type mapping files that facilitate
+  the transfer of data from MySQL to Microsoft SQL
+  Server using MySQL Connector/NET.
 
-This repository serves as a centralized resource for retaining, documenting, and maintaining reusable technical solutions for future use
+## Purpose
+
+This repository serves as a centralized resource for
+retaining, documenting, and maintaining reusable
+technical solutions for future use.
