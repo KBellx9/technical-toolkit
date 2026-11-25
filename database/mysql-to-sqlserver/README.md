@@ -26,7 +26,7 @@ Microsoft SSIS mapping files as structural templates.
 | --- | --- |
 | [MySqlToSSIS.xml](MySqlToSSIS.xml) | Maps MySQL source data types to intermediate SSIS data types. |
 | [MySqlToMSSql.xml](MySqlToMSSql.xml) | Defines corresponding SQL Server destination data types. |
-| [TEST_RESULTS.md](tests/TEST_RESULTS.md) | Documents testing, validation, and technical findings. |
+| [TEST_RESULTS.md](TEST_RESULTS.md) | Documents testing, validation, and technical findings. |
 
 Both XML files contain 31 data type mapping entries.
 
@@ -125,7 +125,7 @@ precision, binary values, and execution of SQL queries
 against the imported data.
 
 Detailed findings are available in
-[TEST_RESULTS.md](tests/TEST_RESULTS.md).
+[TEST_RESULTS.md](TEST_RESULTS.md).
 
 ## Temporal Precision
 
