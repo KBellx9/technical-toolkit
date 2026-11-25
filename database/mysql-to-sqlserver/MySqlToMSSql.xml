@@ -313,4 +313,26 @@
             </dtm:CharacterStringType>
         </dtm:DestinationDataType>
     </dtm:DataTypeMapping>
+    <dtm:DataTypeMapping>
+        <dtm:SourceDataType>
+            <dtm:DataTypeName>752</dtm:DataTypeName>
+        </dtm:SourceDataType>
+        <dtm:DestinationDataType>
+            <dtm:CharacterStringType>
+                <dtm:DataTypeName>nvarchar</dtm:DataTypeName>
+                <dtm:Length>-1</dtm:Length>
+            </dtm:CharacterStringType>
+        </dtm:DestinationDataType>
+    </dtm:DataTypeMapping>
+    <dtm:DataTypeMapping>
+        <dtm:SourceDataType>
+            <dtm:DataTypeName>753</dtm:DataTypeName>
+        </dtm:SourceDataType>
+        <dtm:DestinationDataType>
+            <dtm:CharacterStringType>
+                <dtm:DataTypeName>varbinary</dtm:DataTypeName>
+                <dtm:UseSourceLength />
+            </dtm:CharacterStringType>
+        </dtm:DestinationDataType>
+    </dtm:DataTypeMapping>
 </dtm:DataTypeMappings>
